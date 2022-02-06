@@ -4,6 +4,13 @@ sys.path.insert(0, '../../SIGIR2019')
 
 import time
 import json
+
+import os
+# where the this file is present.
+current = os.path.dirname(os.path.realpath(__file__))
+parent = os.path.dirname(current)
+sys.path.append(parent)
+
 from interactions import MatchInteraction
 import matchzoo as mz
 from handlers import load_data
@@ -11,7 +18,6 @@ import argparse
 import random
 import numpy as np
 import torch
-import os
 import datetime
 from handlers.output_handler import FileHandler
 from Models import fcrg_model
@@ -20,7 +26,7 @@ from Fitting import basic_fitter
 
 def fit_models(args):
     if not os.path.exists(args.log):
-        os.mkdir(args.log)
+        os.makedirs(args.log)
 
     curr_date = datetime.datetime.now().timestamp()  # seconds
     # folder to store all outputed files of a run
@@ -156,10 +162,10 @@ if __name__ == '__main__':
     parser.add_argument('--use_input_feeding', type = int, default = 1, help = 'use_input_feeding')
 
     args = parser.parse_args()
-    torch.cuda.set_device(1)
+    torch.cuda.set_device(-1)
     args.epochs = 100
 
     args.log = "../logs/fcrg"
     args.dataset = "sigir19"
-    args.path = "../formatted_data/politics/mapped_data"
+    args.path = "./formatted_data/politics/mapped_data"
     fit_models(args)
