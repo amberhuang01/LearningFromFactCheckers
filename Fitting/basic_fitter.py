@@ -238,7 +238,7 @@ class BasicFitter(object):
             batch_loss = self._get_loss(batch_query, batch_query_content, batch_doc, batch_doc_content,
                                         batch_query_len, batch_docs_lens, batch_doc_target)
             mask = (batch_doc_target != self.index_of_pad_token)
-            non_pad_tokens = torch.sum(mask).float()
+            non_pad_tokens = torch.sum(mask).float().item()
             loss = batch_loss.data.cpu().numpy()
             loss *= non_pad_tokens
             eval_loss += loss
