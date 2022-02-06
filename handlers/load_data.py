@@ -39,6 +39,7 @@ def load_data2(
 
     # data_root = _download_data()
     data_root = data_root
+    # file_path = os.path.join(data_root, '%s.%s.tsv' % (stage, prefix))
     file_path = os.path.join(data_root, '%s.%s.tsv' % (prefix, stage))
     data_pack = _read_data2(file_path)
     return data_pack
